@@ -6,6 +6,8 @@ void GameWorld::Init()
 	window = SDL_CreateWindow("2D Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 800, SDL_WINDOW_RESIZABLE);
 
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+	sqr1.Init();
 }
 
 void GameWorld::Run()
@@ -16,7 +18,7 @@ void GameWorld::Run()
 		aTimer.resetTicksTimer(); // resets a frame timer to zero
 
 	   //merge of render and update, as example.
-		SDL_SetRenderDrawColor(renderer, 0, 0, 20, SDL_ALPHA_OPAQUE);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
 		//clear the screen
 		SDL_RenderClear(renderer);
 		Input();
@@ -25,7 +27,7 @@ void GameWorld::Run()
 		//move square that was created previously in lecture
 
 		SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
-		SDL_RenderDrawRect(renderer, &r);
+		SDL_RenderDrawRect(renderer, &sqr1.rect);
 		//then present all to the screen
 		SDL_RenderPresent(renderer);
 		//end parts of render&update
@@ -49,29 +51,67 @@ void GameWorld::Input()
 			case SDLK_ESCAPE:
 				done = true;
 				break;
-			case SDLK_w:
-				printf("W has been pressed \n");
+			case MOVE_UP:
+				printf(">> W DOWN \n");
+				up = true;
+				break;
+			case MOVE_DOWN:
+				printf(">> S DOWN \n");
+				down = true;
+				break;
+			case MOVE_LEFT:
+				printf(">> A DOWN \n");
+				left = true;
+				break;
+			case MOVE_RIGHT:
+				printf(">> D DOWN \n");
+				right = true;
 				break;
 			}
 		}
-		//SDL_PumpEvents();  // make sure we have the latest mouse state.
-		if (_event.type == SDL_MOUSEMOTION)
+		if (_event.type == SDL_KEYUP && _event.key.repeat == NULL)
 		{
-			buttons = SDL_GetMouseState(&x, &y);
-			system("cls");
-			SDL_Log("Mouse cursor is at %d, %d", x, y);
+			switch (_event.key.keysym.sym) {
+			case SDLK_ESCAPE:
+				done = true;
+				break;
+			case MOVE_UP:
+				printf(">> W UP \n");
+				up = false;
+				break;
+			case MOVE_DOWN:
+				printf(">> S UP \n");
+				down = false;
+				break;
+			case MOVE_LEFT:
+				printf(">> A UP \n");
+				left = false;
+				break;
+			case MOVE_RIGHT:
+				printf(">> D UP \n");
+				right = false;
+				break;
+			}
 		}
+	}
+	SDL_PumpEvents();  // make sure we have the latest mouse state.
+	if (_event.type == SDL_MOUSEMOTION)
+	{
+		buttons = SDL_GetMouseState(&x, &y);
+		system("cls");
+		SDL_Log("Mouse cursor is at %d, %d", x, y);
 	}
 }
 
 void GameWorld::Update()
 {
-
+	sqr1.Update(up,down,left,right);
 }
 
 void GameWorld::Render()
 {
-
+	sqr1.Render(renderer);
+	SDL_RenderPresent(renderer);
 }
 
 void GameWorld::Quit()

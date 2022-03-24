@@ -26,6 +26,9 @@ public:
 	Rectangle sqr1;
 	Rectangle sqr2;
 
+	int x, y;
+	Uint32 buttons;
+
 	bool gKeys[MAX_KEYS];
 
 	void Init();
@@ -38,7 +41,7 @@ private:
 	Timer aTimer;
 	const int DELTA_TIME = 50;
 	bool done = false;
-	int x, y;
-	Uint32 buttons;
+	bool up, down, left, right;
+
 };
 

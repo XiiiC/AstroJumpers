@@ -8,11 +8,11 @@ public:
 	Rectangle();
 	~Rectangle();
 	void Init();
-	void Update();
+	void Update(bool up, bool down, bool left, bool right);
 	void Input(int whichKey);
 	void Render(SDL_Renderer* aRenderer);
 	SDL_Rect rect;
-	int x, y, height, width, R, G, B;
+	int height, width, R, G, B;
 };
 
 
