@@ -1,30 +1,18 @@
 #pragma once
-#include "SDL.h"
 #include <iostream>
-#include <string>
-#include "Timer.h"
-
-#define MAX_KEYS (256)
-bool gKeys[MAX_KEYS];
-
-using namespace std;
+#include "SDL.h"
 
 class Rectangle
 {
 public:
-	SDL_Rect r;
-	Rectangle(int x, int y, int w, int h);
-	void GameLoop(SDL_Window* window, SDL_Renderer* renderer);
-	void Input();
+	Rectangle();
+	~Rectangle();
+	void Init();
 	void Update();
-	void Render(SDL_Renderer* renderer);
-private:
-	Timer aTimer;
-	const int DELTA_TIME = 50;
-	bool done = false;
-	bool left = false;
-	bool right = true;
-	int x, y;
-	Uint32 buttons;
+	void Input(int whichKey);
+	void Render(SDL_Renderer* aRenderer);
+	SDL_Rect rect;
+	int x, y, height, width, R, G, B;
 };
+
 
