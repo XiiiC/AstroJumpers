@@ -7,7 +7,13 @@ void GameWorld::Init()
 
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-	sqr1.Init();
+	plyr1.Init();
+	enmy1.Init(250, 250);
+	enmy2.Init(300, 300);
+	enmy3.Init(650, 250);
+	enmy4.Init(100, 300);
+	enmy5.Init(700, 350);
+	enmy6.Init(200, 350);
 }
 
 void GameWorld::Run()
@@ -27,7 +33,7 @@ void GameWorld::Run()
 		//move square that was created previously in lecture
 
 		SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
-		SDL_RenderDrawRect(renderer, &sqr1.rect);
+		SDL_RenderDrawRect(renderer, &plyr1.rect);
 		//then present all to the screen
 		SDL_RenderPresent(renderer);
 		//end parts of render&update
@@ -105,13 +111,24 @@ void GameWorld::Input()
 
 void GameWorld::Update()
 {
-	sqr1.Update(up,down,left,right);
+	plyr1.Update(up,down,left,right);
+	enmy1.Update(window);
+	enmy2.Update(window);
+	enmy3.Update(window);
+	enmy4.Update(window);
+	enmy5.Update(window);
+	enmy6.Update(window);
 }
 
 void GameWorld::Render()
 {
-	sqr1.Render(renderer);
-	SDL_RenderPresent(renderer);
+	plyr1.Render(renderer);
+	enmy1.Render(renderer);
+	enmy2.Render(renderer);
+	enmy3.Render(renderer);
+	enmy4.Render(renderer);
+	enmy5.Render(renderer);
+	enmy6.Render(renderer);
 }
 
 void GameWorld::Quit()

@@ -139,20 +139,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameWorld.cpp" />
-    <ClCompile Include="Invader.cpp" />
     <ClCompile Include="Project2D.cpp" />
-    <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="GameWorld.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameWorld.h" />
-    <ClInclude Include="Invader.h" />
-    <ClInclude Include="Rectangle.h" />
-    <ClInclude Include="Timer.h" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,7 +1,8 @@
 #pragma once
 #include "SDL.h"
 #include "Timer.h"
-#include "Rectangle.h"
+#include "Player.h"
+#include "Enemy.h"
 #include <iostream>
 #include <string>
 
@@ -23,8 +24,13 @@ public:
 	SDL_Event _event;
 
 	SDL_Rect r;
-	Rectangle sqr1;
-	Rectangle sqr2;
+	Player plyr1;
+	Enemy enmy1;
+	Enemy enmy2;
+	Enemy enmy3;
+	Enemy enmy4;
+	Enemy enmy5;
+	Enemy enmy6;
 
 	int x, y;
 	Uint32 buttons;
