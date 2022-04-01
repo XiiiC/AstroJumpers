@@ -8,7 +8,7 @@ class Enemy
 public:
 	Enemy();
 	~Enemy();
-	void Init(int x, int y);
+	void Init(int x, int y, bool direction);
 	void Update(SDL_Window* window);
 	void Render(SDL_Renderer* aRenderer);
 	SDL_Rect rect;

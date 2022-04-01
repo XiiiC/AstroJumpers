@@ -8,7 +8,7 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::Init(int x, int y)
+void Enemy::Init(int x, int y, bool direction)
 {
 	rect.x = x;
 	rect.y = y;
@@ -17,7 +17,7 @@ void Enemy::Init(int x, int y)
 	R = 100;
 	G = 100;
 	B = 100;
-	right = true;
+	right = direction;
 	speed = 5;
 }
 

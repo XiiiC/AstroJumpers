@@ -8,12 +8,12 @@ void GameWorld::Init()
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 	plyr1.Init();
-	enmy1.Init(250, 250);
-	enmy2.Init(300, 300);
-	enmy3.Init(650, 250);
-	enmy4.Init(100, 300);
-	enmy5.Init(700, 350);
-	enmy6.Init(200, 350);
+	enmy1.Init(250, 250, true);
+	enmy2.Init(300, 300, true);
+	enmy3.Init(650, 250, false);
+	enmy4.Init(100, 300, true);
+	enmy5.Init(700, 350, false);
+	enmy6.Init(200, 350, true);
 }
 
 void GameWorld::Run()

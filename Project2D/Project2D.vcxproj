@@ -139,17 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BulletContainer.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameWorld.cpp" />
     <ClCompile Include="Project2D.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BulletContainer.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameWorld.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
