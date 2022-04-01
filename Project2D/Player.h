@@ -15,6 +15,7 @@ public:
 	int height, width, R, G, B;
 private:
 	int speed;
+	float offset;
 	Vector2D velocity;
 
 };

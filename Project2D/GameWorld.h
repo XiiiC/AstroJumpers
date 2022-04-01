@@ -14,6 +14,7 @@ using namespace std;
 #define MOVE_DOWN 's'
 #define MOVE_RIGHT 'd'
 
+
 class GameWorld
 {
 
