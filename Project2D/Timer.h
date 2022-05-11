@@ -1,8 +1,9 @@
 #pragma once
+#pragma warning(disable : 4996)
 #include <iostream>
 #include <SDL.h>
-// written by oszymanezyk@lincoln.ac.uk
-// part of games programming module
+#include<ctime>
+
 class Timer
 {
 private:
@@ -12,5 +13,6 @@ public:
 	//SDL timer stuff
 	void resetTicksTimer(); // resets timer to zero
 	int getTicks(); // returns how much time has passed since timer has been reset
+	bool GetTime(char* buffer, int buffersize);
 };
 

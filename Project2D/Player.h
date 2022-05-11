@@ -2,6 +2,7 @@
 #include <iostream>
 #include "SDL.h"
 #include "Vector2D.h"
+#include "SDL_image.h"
 
 class Player
 {
@@ -17,6 +18,9 @@ private:
 	int speed;
 	float offset;
 	Vector2D velocity;
+
+	SDL_Surface* playerSprite;
+	SDL_Texture* playerTexture;
 
 };
 

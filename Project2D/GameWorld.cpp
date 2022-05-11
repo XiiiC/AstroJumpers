@@ -3,18 +3,18 @@
 
 void GameWorld::Init()
 {
-	window = SDL_CreateWindow("2D Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1080, 1080, SDL_WINDOW_RESIZABLE);
-	SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	
+
+	window = SDL_CreateWindow("2D Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 800, SDL_WINDOW_RESIZABLE);
+
 
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 	plyr1.Init();
-	enmy1.Init(250, 250, true);
-	enmy2.Init(300, 300, true);
-	enmy3.Init(650, 250, false);
-	enmy4.Init(100, 300, true);
-	enmy5.Init(700, 350, false);
-	enmy6.Init(200, 350, true);
+
+	pipes1.Init(0, false);
+	pipes2.Init(300, false);
+	pipes3.Init(600, false);
 }
 
 void GameWorld::Run()
@@ -50,6 +50,11 @@ void GameWorld::Input()
 {
 	while (SDL_PollEvent(&_event))
 	{
+		SDL_Keycode keyPressed = _event.key.keysym.sym;
+		char timestr[32];
+		GetTime(timestr, 32);
+
+
 		if (_event.type == SDL_QUIT)
 			done = true;
 		if (_event.type == SDL_KEYDOWN && _event.key.repeat == NULL)
@@ -59,21 +64,24 @@ void GameWorld::Input()
 				done = true;
 				break;
 			case MOVE_UP:
-				printf(">> W DOWN \n");
+				SDL_Log("[%s] [KEY DOWN] time %d; code %d; char %s;", timestr, _event.key.timestamp, keyPressed, SDL_GetKeyName(keyPressed));
 				up = true;
 				break;
 			case MOVE_DOWN:
-				printf(">> S DOWN \n");
+				SDL_Log("[%s] [KEY DOWN] time %d; code %d; char %s;", timestr, _event.key.timestamp, keyPressed, SDL_GetKeyName(keyPressed));
 				down = true;
 				break;
 			case MOVE_LEFT:
-				printf(">> A DOWN \n");
+				SDL_Log("[%s] [KEY DOWN] time %d; code %d; char %s;", timestr, _event.key.timestamp, keyPressed, SDL_GetKeyName(keyPressed));
 				left = true;
 				break;
 			case MOVE_RIGHT:
-				printf(">> D DOWN \n");
+				SDL_Log("[%s] [KEY DOWN] time %d; code %d; char %s;", timestr, _event.key.timestamp, keyPressed, SDL_GetKeyName(keyPressed));
 				right = true;
 				break;
+			case SHOOT:
+				SDL_Log("[%s] [KEY DOWN] time %d; code %d; char %s;", timestr, _event.key.timestamp, keyPressed, SDL_GetKeyName(keyPressed));
+				shoot = true;
 			}
 		}
 		if (_event.type == SDL_KEYUP && _event.key.repeat == NULL)
@@ -83,21 +91,24 @@ void GameWorld::Input()
 				done = true;
 				break;
 			case MOVE_UP:
-				printf(">> W UP \n");
+				SDL_Log("[%s] [KEY UP] time %d; code %d; char %s;", timestr, _event.key.timestamp, keyPressed, SDL_GetKeyName(keyPressed));
 				up = false;
 				break;
 			case MOVE_DOWN:
-				printf(">> S UP \n");
+				SDL_Log("[%s] [KEY DOWN] time %d; code %d; char %s;", timestr, _event.key.timestamp, keyPressed, SDL_GetKeyName(keyPressed));
 				down = false;
 				break;
 			case MOVE_LEFT:
-				printf(">> A UP \n");
+				SDL_Log("[%s] [KEY DOWN] time %d; code %d; char %s;", timestr, _event.key.timestamp, keyPressed, SDL_GetKeyName(keyPressed));
 				left = false;
 				break;
 			case MOVE_RIGHT:
-				printf(">> D UP \n");
+				SDL_Log("[%s] [KEY DOWN] time %d; code %d; char %s;", timestr, _event.key.timestamp, keyPressed, SDL_GetKeyName(keyPressed));
 				right = false;
 				break;
+			case SHOOT:
+				SDL_Log("[%s] [KEY DOWN] time %d; code %d; char %s;", timestr, _event.key.timestamp, keyPressed, SDL_GetKeyName(keyPressed));
+				shoot = false;
 			}
 		}
 	}
@@ -113,23 +124,34 @@ void GameWorld::Input()
 void GameWorld::Update()
 {
 	plyr1.Update(up,down,left,right);
-	enmy1.Update(window);
-	enmy2.Update(window);
-	enmy3.Update(window);
-	enmy4.Update(window);
-	enmy5.Update(window);
-	enmy6.Update(window);
+
+	pipes1.Update(window);
+	pipes2.Update(window);
+	pipes3.Update(window);
 }
 
 void GameWorld::Render()
 {
+
 	plyr1.Render(renderer);
-	enmy1.Render(renderer);
-	enmy2.Render(renderer);
-	enmy3.Render(renderer);
-	enmy4.Render(renderer);
-	enmy5.Render(renderer);
-	enmy6.Render(renderer);
+
+
+	pipes1.Render(renderer);
+	pipes2.Render(renderer);
+	pipes3.Render(renderer);
+
+}
+bool GameWorld::GetTime(char* buffer, int buffersize) 
+{
+	//Get the current time
+	time_t currentTime =
+		std::time(0);
+	//Get time information from current time -- secs, mins, etc. and save into a struct
+		struct tm* info = localtime(&currentTime);
+	//Format the time to (day_num/month_num/year time)
+	size_t written = strftime(buffer, buffersize, "%d/%m/%y %T", info);
+	//And return the string
+	return written != 0;
 }
 
 void GameWorld::Quit()

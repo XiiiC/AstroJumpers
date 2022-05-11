@@ -39,6 +39,29 @@ void BulletContainer::Input(int fire)
 
 void BulletContainer::Update()
 {
+	for (auto& element : bulletList)
+	{
+		element->Update();
+		if (element->velocity.x > 0)
+		{
+			element->lifeCounter++;
+		}
+		else
+		{
+			element->x = x;
+			element->y = y;
+		}
+		if (element->lifeCounter > ttl)
+		{
+			element->lifeCounter = 0;
+			element->x = x;
+			element->y = y;
+			element->velocity.x = 0;
+		}
+	}
+
+	rect.x = x;
+	rect.y = y;
 }
 
 void BulletContainer::Render(SDL_Renderer* renderer)
@@ -47,8 +70,30 @@ void BulletContainer::Render(SDL_Renderer* renderer)
 	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 	SDL_RenderFillRect(renderer, &rect);
 
+	for (auto& element : bulletList)
+	{
+		if (element->velocity.x != 0)
+		{
+			element->Render(renderer);
+		}
+	}
+
 }
 
 void BulletContainer::Shoot()
 {
+	int i = 0;
+	bool notFound = true;
+	while ((i < bulletList.size()) && (notFound))
+	{
+		if (bulletList[i]->velocity.x = 0)
+		{
+			bulletList[i]->x = x;
+			bulletList[i]->y = y;
+			bulletList[i]->lifeCounter = 0;
+			bulletList[i]->velocity.x = 10;
+			notFound = false;
+		}
+		i++;
+	}
 }

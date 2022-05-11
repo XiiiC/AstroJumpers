@@ -22,9 +22,32 @@ void Bullet::Init(int x, int y, int num, int TTL)
 
 void Bullet::Update()
 {
+	rect.x = x;
+	rect.y = y;
+	rect.h = h;
+	rect.w = w;
+	// finally update the x/y according to velocity
+	x = x + velocity.x;
+	y = y + velocity.y;
+
+	velocity.y = velocity.y + 1;
+	if (y >= 500)
+	{
+		velocity.y = -15;
+	}
+	if (x <= 0) {
+		velocity.y = 5;
+	}
+	if (x >= 700)
+	{
+		velocity.y = -5;
+	}
+	// finally update the x/y according to velocity
+	x = x + velocity.x;
+	y = y + velocity.y;
 }
 
-void Bullet::Render()
+void Bullet::Render(SDL_Renderer* renderer)
 {
 
 }
