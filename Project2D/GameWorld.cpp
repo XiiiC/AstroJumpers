@@ -10,6 +10,9 @@ void GameWorld::Init()
 
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
+	IMG_Init(SDL_INIT_EVERYTHING);
+
+
 	plyr1.Init();
 
 	pipes1.Init(0, false);
@@ -34,7 +37,7 @@ void GameWorld::Run()
 		//move square that was created previously in lecture
 
 		SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
-		SDL_RenderDrawRect(renderer, &plyr1.rect);
+		//SDL_RenderDrawRect(renderer, &plyr1.rect);
 		//then present all to the screen
 		SDL_RenderPresent(renderer);
 		//end parts of render&update
@@ -156,4 +159,5 @@ bool GameWorld::GetTime(char* buffer, int buffersize)
 
 void GameWorld::Quit()
 {
+	IMG_Quit();
 }

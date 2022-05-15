@@ -69,7 +69,7 @@ void Pipes::Offset()
 	timer.GetTime(timestr, 32);
 	std::random_device rd;
 	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> distr(200, 600);
+	std::uniform_int_distribution<> distr(350, 600);
 	offset = distr(gen);
 	SDL_Log("[%s] [Offset Change] %i", timestr, offset);
 }

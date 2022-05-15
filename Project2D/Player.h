@@ -19,6 +19,10 @@ private:
 	float offset;
 	Vector2D velocity;
 
+
+	SDL_Rect srcRect;
+	SDL_Rect dstRect;
+
 	SDL_Surface* playerSprite;
 	SDL_Texture* playerTexture;
 
