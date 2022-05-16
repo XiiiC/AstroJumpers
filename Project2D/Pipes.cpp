@@ -17,7 +17,7 @@ void Pipes::Init(int y, bool direction, SDL_Renderer* renderer)
 	G = 150;
 	B = 0;
 	top = direction;
-	speed = 5;
+	speed = 4;
 
 	//Convert to a texture
 	pipe1texture = SDL_CreateTextureFromSurface(renderer, surface);

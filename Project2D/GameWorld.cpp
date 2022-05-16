@@ -3,14 +3,16 @@
 
 void GameWorld::Init()
 {
-	
 
-	window = SDL_CreateWindow("2D Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 800, SDL_WINDOW_RESIZABLE);
+	window = SDL_CreateWindow("Hardijs Raubiskis; CGP2015M Game Programming; 25113420; AstroJumpers", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 800, SDL_WINDOW_RESIZABLE);
 
 
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-	IMG_Init(SDL_INIT_EVERYTHING);
+	if (IMG_Init(SDL_INIT_EVERYTHING) < 0)
+	{
+		SDL_LogCritical(SDL_LOG_CATEGORY_SYSTEM, "Image Initialisation Failed.");
+	}
 
 
 	plyr1.Init(renderer);
@@ -120,17 +122,55 @@ void GameWorld::Input()
 			}
 		}
 	}
-	SDL_PumpEvents();  // make sure we have the latest mouse state.
-	if (_event.type == SDL_MOUSEMOTION)
-	{
-		buttons = SDL_GetMouseState(&x, &y);
-		system("cls");
-		SDL_Log("Mouse cursor is at %d, %d", x, y);
-	}
+
 }
 
 void GameWorld::Update()
 {
+	char timestr[32];
+	GetTime(timestr, 32);
+
+	if (collisions.CheckCollision(plyr1.rect, pipes1.pipe1.rect))
+	{
+		SDL_Log("[%s] [COLLISION] time %d; Player, Pipe", timestr, _event.key.timestamp);
+
+	}
+	if (collisions.CheckCollision(plyr1.rect, pipes1.pipe2.rect))
+	{
+		SDL_Log("[%s] [COLLISION] time %d; Player, Pipe", timestr, _event.key.timestamp);
+
+	}
+	if (collisions.CheckCollision(plyr1.rect, pipes2.pipe1.rect))
+	{
+		SDL_Log("[%s] [COLLISION] time %d; Player, Pipe", timestr, _event.key.timestamp);
+
+	}
+	if (collisions.CheckCollision(plyr1.rect, pipes2.pipe2.rect))
+	{
+		SDL_Log("[%s] [COLLISION] time %d; Player, Pipe", timestr, _event.key.timestamp);
+
+	}
+	if (collisions.CheckCollision(plyr1.rect, pipes3.pipe1.rect))
+	{
+		SDL_Log("[%s] [COLLISION] time %d; Player, Pipe", timestr, _event.key.timestamp);
+
+	}
+	if (collisions.CheckCollision(plyr1.rect, pipes3.pipe2.rect))
+	{
+		SDL_Log("[%s] [COLLISION] time %d; Player, Pipe", timestr, _event.key.timestamp);
+
+	}
+	if (collisions.CheckCollision(plyr1.rect, pipes4.pipe1.rect))
+	{
+		SDL_Log("[%s] [COLLISION] time %d; Player, Pipe", timestr, _event.key.timestamp);
+
+	}
+	if (collisions.CheckCollision(plyr1.rect, pipes4.pipe2.rect))
+	{
+		SDL_Log("[%s] [COLLISION] time %d; Player, Pipe", timestr, _event.key.timestamp);
+
+	}
+
 	plyr1.Update(up,down,left,right);
 
 	pipes1.Update(window);
@@ -138,13 +178,12 @@ void GameWorld::Update()
 	pipes3.Update(window);
 	pipes4.Update(window);
 
+	 //Add end game condition
+
 }
 
 void GameWorld::Render()
 {
-
-
-
 	SDL_RenderCopy(renderer, texture, NULL, NULL);
 
 	plyr1.Render(renderer);

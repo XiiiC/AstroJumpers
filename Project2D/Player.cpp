@@ -18,7 +18,7 @@ void Player::Init(SDL_Renderer* renderer)
 	R = 100;
 	G = 0;
 	B = 255;
-	speed = 3;
+	speed = 1;
 	velocity.x = 0;
 	velocity.y = 0;
 	offset = 0.8f;
@@ -85,7 +85,6 @@ void Player::Render(SDL_Renderer* renderer)
 
 
 	SDL_RenderCopy(renderer, texture, &srcRect, &dstRect);
-	
 	
 	//SDL_SetRenderDrawColor(renderer, R, G, B, 255);
 	//SDL_RenderFillRect(renderer, &rect);

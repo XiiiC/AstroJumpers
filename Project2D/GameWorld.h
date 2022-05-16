@@ -11,6 +11,7 @@
 #include "Pipes.h"
 #include "FileLogger.h"
 #include "Collider.h"
+#include "SDL_mixer.h"
 
 using namespace std;
 
@@ -32,7 +33,9 @@ public:
 	SDL_Renderer* renderer;
 	SDL_Event _event;
 
-	SDL_Rect r;
+	Collider collisions;
+
+	//SDL_Rect r;
 
 	Player plyr1;
 
@@ -56,13 +59,15 @@ public:
 	void Quit();
 private:
 	Timer aTimer;
-	const int DELTA_TIME = 50;
+	const float DELTA_TIME = 33.33f;
 	bool done = false;
 	bool up, down, left, right, shoot;
 
 	SDL_Surface* surface = IMG_Load("content/space.png");
 	SDL_Texture* texture;
 
+	Mix_Music* SOUND_aBckMusic = NULL;
+	Mix_Chunk* SOUND_aShot = NULL;
 
 
 };

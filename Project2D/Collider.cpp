@@ -3,7 +3,12 @@
 
 bool AABB::CheckCollision(SDL_Rect a, SDL_Rect b)
 {
-	//all sides of the two rectangles
+	return false;
+}
+
+bool Collider::CheckCollision(SDL_Rect a, SDL_Rect b)
+{
+		//all sides of the two rectangles
 	int leftA, leftB, rightA, rightB, topA, topB, bottomA, bottomB;
 
 	//assigns the values of the rectangles
@@ -18,14 +23,25 @@ bool AABB::CheckCollision(SDL_Rect a, SDL_Rect b)
 	topB = b.y;
 	bottomB = b.y + b.h;
 
-	if (bottomA <= topB)
-		return false;
-	if (topA >= bottomB)
-		return false;
-	if (rightA <= leftB)
-		return false;
-	if (leftA >= rightB)
-		return false;
 
-	return true;
+	if (topA >= bottomB)
+	{
+		return false;
+	}
+	else if (bottomA <= topB)
+	{
+		return false;
+	}
+	else if (rightA >= leftB)
+	{
+		return false;
+	}
+	else if (leftA <= rightB)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
 }
