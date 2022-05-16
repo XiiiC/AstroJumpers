@@ -9,7 +9,7 @@ Player::~Player()
 {
 
 }
-void Player::Init() 
+void Player::Init(SDL_Renderer* renderer)
 {
 	rect.x = 500;
 	rect.y = 500;
@@ -23,8 +23,10 @@ void Player::Init()
 	velocity.y = 0;
 	offset = 0.8f;
 
-
-
+	//Convert to a texture
+	texture = SDL_CreateTextureFromSurface(renderer, surface);
+	//Free up the surface data from RAM
+	SDL_FreeSurface(surface);
 }
 
 
@@ -38,12 +40,12 @@ void Player::Update(bool& up, bool& down, bool& left, bool& right)
 		velocity.y = -20;
 		srcRect = { 96, 0, 32, 32 };
 		up = false;
-		if (down)
-		{
-			velocity.y = 20;
-			down = false;
-			srcRect = { 32, 0, 32, 32 };
-		}
+	}
+	if (down)
+	{
+		velocity.y = 20;
+		down = false;
+		srcRect = { 32, 0, 32, 32 };
 	}
 		velocity.y += 2;
 	if (rect.y > 750)
@@ -80,15 +82,6 @@ void Player::Update(bool& up, bool& down, bool& left, bool& right)
 
 void Player::Render(SDL_Renderer* renderer)
 {
-
-	//Load in png
-	SDL_Surface* surface = IMG_Load("content/PlayerSpriteSheet.png");
-	//Convert to a texture
-	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
-	//Free up the surface data from RAM
-	SDL_FreeSurface(surface);
-
-
 
 
 	SDL_RenderCopy(renderer, texture, &srcRect, &dstRect);

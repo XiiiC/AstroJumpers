@@ -10,7 +10,7 @@
 #include "Rectangle.h"
 #include "Pipes.h"
 #include "FileLogger.h"
-
+#include "Collider.h"
 
 using namespace std;
 
@@ -39,11 +39,13 @@ public:
 	Pipes pipes1;
 	Pipes pipes2;
 	Pipes pipes3;
+	Pipes pipes4;
 
 	int x, y;
 	Uint32 buttons;
 
 	bool gKeys[MAX_KEYS];
+
 
 	void Init();
 	void Run();
@@ -57,6 +59,11 @@ private:
 	const int DELTA_TIME = 50;
 	bool done = false;
 	bool up, down, left, right, shoot;
+
+	SDL_Surface* surface = IMG_Load("content/space.png");
+	SDL_Texture* texture;
+
+
 
 };
 

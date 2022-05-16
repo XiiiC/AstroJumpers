@@ -13,11 +13,16 @@ void GameWorld::Init()
 	IMG_Init(SDL_INIT_EVERYTHING);
 
 
-	plyr1.Init();
+	plyr1.Init(renderer);
 
-	pipes1.Init(0, false);
-	pipes2.Init(300, false);
-	pipes3.Init(600, false);
+	pipes1.Init(0, false, renderer);
+	pipes2.Init(200, false, renderer);
+	pipes3.Init(400, false, renderer);
+	pipes4.Init(600, false, renderer);
+
+	texture = SDL_CreateTextureFromSurface(renderer, surface);
+	//Free up the surface data from RAM
+	SDL_FreeSurface(surface);
 }
 
 void GameWorld::Run()
@@ -131,10 +136,16 @@ void GameWorld::Update()
 	pipes1.Update(window);
 	pipes2.Update(window);
 	pipes3.Update(window);
+	pipes4.Update(window);
+
 }
 
 void GameWorld::Render()
 {
+
+
+
+	SDL_RenderCopy(renderer, texture, NULL, NULL);
 
 	plyr1.Render(renderer);
 
@@ -142,6 +153,7 @@ void GameWorld::Render()
 	pipes1.Render(renderer);
 	pipes2.Render(renderer);
 	pipes3.Render(renderer);
+	pipes4.Render(renderer);
 
 }
 bool GameWorld::GetTime(char* buffer, int buffersize) 

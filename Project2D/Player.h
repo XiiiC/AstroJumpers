@@ -9,7 +9,7 @@ class Player
 public:
 	Player();
 	~Player();
-	void Init();
+	void Init(SDL_Renderer* renderer);
 	void Update(bool& up, bool& down, bool& left, bool& right);
 	void Render(SDL_Renderer* aRenderer);
 	SDL_Rect rect;
@@ -23,8 +23,9 @@ private:
 	SDL_Rect srcRect;
 	SDL_Rect dstRect;
 
-	SDL_Surface* playerSprite;
-	SDL_Texture* playerTexture;
+	//Load in png
+	SDL_Surface* surface = IMG_Load("content/PlayerSpriteSheet.png");
+	SDL_Texture* texture;
 
 };
 
