@@ -13,6 +13,8 @@ void Pipes::Init(int y, bool direction, SDL_Renderer* renderer)
 {
 	pipe1.Init(-300, y, 700, 50, 85, 0, 0);
 	pipe2.Init(500, y, 700, 50, 85, 0, 0);
+	powerUp1.Init(0,0 , 32, 32, 0, 255, 0);
+	powerUp2.Init(32,32 , 32, 32, 0, 255, 0);
 	R = 0;
 	G = 150;
 	B = 0;
@@ -71,8 +73,8 @@ void Pipes::Render(SDL_Renderer* renderer)
 	SDL_RenderCopy(renderer, pipe1texture, NULL, &dstRectPipe1);
 	SDL_RenderCopy(renderer, pipe1texture, NULL, &dstRectPipe2);
 
-	//pipe1.Render(renderer);
-	//pipe2.Render(renderer);
+	powerUp1.Render(renderer);
+	powerUp2.Render(renderer);
 	SDL_RenderPresent(renderer);
 }
 

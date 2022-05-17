@@ -21,6 +21,7 @@ using namespace std;
 #define MOVE_DOWN 's'
 #define MOVE_RIGHT 'd'
 #define SHOOT 'g'
+#define PERF 'p'
 
 
 class GameWorld
@@ -49,25 +50,29 @@ public:
 
 	bool gKeys[MAX_KEYS];
 
+	float maxGameTime;
+	float curGameTime;
 
 	void Init();
 	void Run();
 	void Input();
 	void Update();
 	void Render();
-	bool GetTime(char* buffer, int buffersize);
 	void Quit();
 private:
 	Timer aTimer;
 	const float DELTA_TIME = 33.33f;
 	bool done = false;
-	bool up, down, left, right, shoot;
+	bool up, down, left, right, shoot, perf;
 
 	SDL_Surface* surface = IMG_Load("content/space.png");
 	SDL_Texture* texture;
 
-	Mix_Music* SOUND_aBckMusic = NULL;
-	Mix_Chunk* SOUND_aShot = NULL;
+	Mix_Music* SOUND_backMusic = NULL;
+	Mix_Music* SOUND_jump = NULL;
+
+	Mix_Chunk* SOUND_back = NULL;
+	Mix_Chunk* SOUND_jumper = NULL;
 
 
 };

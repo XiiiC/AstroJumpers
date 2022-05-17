@@ -9,6 +9,17 @@ void Timer::resetTicksTimer()
 	startTicks = SDL_GetTicks(); // numbers of milliseconds since start of SDL program
 	//printf("timer started! %i \n", startTicks);
 }
+void Timer::startPerformance()
+{
+	start = SDL_GetPerformanceCounter();
+}
+void Timer::endPerformance(std::string perform)
+{
+	end = SDL_GetPerformanceCounter();
+
+	float secondsElapsed = (end - start) / (float)SDL_GetPerformanceFrequency() * 1000;
+	SDL_LogDebug(SDL_LOG_CATEGORY_TEST , "%s Time: %fms", perform, secondsElapsed);
+}
 int Timer::getTicks()
 {
 	//printf("getTicks! %i \n", SDL_GetTicks() - startTicks);

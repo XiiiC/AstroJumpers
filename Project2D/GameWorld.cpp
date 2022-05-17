@@ -14,6 +14,22 @@ void GameWorld::Init()
 		SDL_LogCritical(SDL_LOG_CATEGORY_SYSTEM, "Image Initialisation Failed.");
 	}
 
+	if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
+	{
+		printf("Warning: Audio has not been found! \n");
+	}
+	else
+	{
+		SOUND_jumper = Mix_LoadWAV("content/jump.wav");
+			//("content/jump.wav");
+		SOUND_backMusic = Mix_LoadMUS("content/backgroundMusic.mp3");
+		//Mix_VolumeChunk(SOUND_back, 32); //The Volume of this sound (0-255)
+		Mix_VolumeMusic(8); //The volume for the music (0-255)
+	}
+
+
+	maxGameTime = 60.0f;
+	curGameTime = 0.0f;
 
 	plyr1.Init(renderer);
 
@@ -25,12 +41,24 @@ void GameWorld::Init()
 	texture = SDL_CreateTextureFromSurface(renderer, surface);
 	//Free up the surface data from RAM
 	SDL_FreeSurface(surface);
+
+	Mix_PlayChannel(-1, SOUND_back, 0);
+
+	if (Mix_PlayingMusic() == 0)
+	{
+		//Play the music
+		Mix_PlayMusic(SOUND_backMusic, -1);
+	}
+
 }
 
 void GameWorld::Run()
 {
+
 	while (!done)
 	{
+		//add the amount of time that one frame takes every frame
+		curGameTime += 0.0333f;
 		//use home made timer provided by Olivier
 		aTimer.resetTicksTimer(); // resets a frame timer to zero
 
@@ -47,22 +75,30 @@ void GameWorld::Run()
 		//SDL_RenderDrawRect(renderer, &plyr1.rect);
 		//then present all to the screen
 		SDL_RenderPresent(renderer);
-		//end parts of render&update
-		// if less time has passed than allocated block, wait difference
+		//end parts of render&updatece
 		if (aTimer.getTicks() < DELTA_TIME)
 		{
 			SDL_Delay(DELTA_TIME - aTimer.getTicks());
+		}
+		if (curGameTime >= maxGameTime)
+		{
+			done = true;
 		}
 	}
 }
 
 void GameWorld::Input()
 {
+	Timer performanceTimer;
+	performanceTimer.startPerformance();
+
 	while (SDL_PollEvent(&_event))
 	{
 		SDL_Keycode keyPressed = _event.key.keysym.sym;
 		char timestr[32];
-		GetTime(timestr, 32);
+		aTimer.GetTime(timestr, 32);
+
+		
 
 
 		if (_event.type == SDL_QUIT)
@@ -75,6 +111,7 @@ void GameWorld::Input()
 				break;
 			case MOVE_UP:
 				SDL_Log("[%s] [KEY DOWN] time %d; code %d; char %s;", timestr, _event.key.timestamp, keyPressed, SDL_GetKeyName(keyPressed));
+				Mix_PlayChannel(1,SOUND_jumper, 0);
 				up = true;
 				break;
 			case MOVE_DOWN:
@@ -92,11 +129,16 @@ void GameWorld::Input()
 			case SHOOT:
 				SDL_Log("[%s] [KEY DOWN] time %d; code %d; char %s;", timestr, _event.key.timestamp, keyPressed, SDL_GetKeyName(keyPressed));
 				shoot = true;
+			case PERF:
+				SDL_Log("[%s] [KEY DOWN] time %d; code %d; char %s;", timestr, _event.key.timestamp, keyPressed, SDL_GetKeyName(keyPressed));
+				perf = !perf;
+				SDL_Log("[%s] [PERF TOGGLE] time %d; char %b;", timestr, _event.key.timestamp, perf);
 			}
 		}
 		if (_event.type == SDL_KEYUP && _event.key.repeat == NULL)
 		{
-			switch (_event.key.keysym.sym) {
+			switch (_event.key.keysym.sym) 
+			{
 			case SDLK_ESCAPE:
 				done = true;
 				break;
@@ -119,56 +161,64 @@ void GameWorld::Input()
 			case SHOOT:
 				SDL_Log("[%s] [KEY DOWN] time %d; code %d; char %s;", timestr, _event.key.timestamp, keyPressed, SDL_GetKeyName(keyPressed));
 				shoot = false;
+			case PERF:
+				SDL_Log("[%s] [KEY DOWN] time %d; code %d; char %s;", timestr, _event.key.timestamp, keyPressed, SDL_GetKeyName(keyPressed));
 			}
 		}
 	}
+	if(perf)
+		performanceTimer.endPerformance("Input");
 
 }
 
 void GameWorld::Update()
 {
+	Timer performanceTimer;
+	performanceTimer.startPerformance();
+
 	char timestr[32];
-	GetTime(timestr, 32);
+	aTimer.GetTime(timestr, 32);
 
 	if (collisions.CheckCollision(plyr1.rect, pipes1.pipe1.rect))
 	{
 		SDL_Log("[%s] [COLLISION] time %d; Player, Pipe", timestr, _event.key.timestamp);
+		done = true;
 
 	}
 	if (collisions.CheckCollision(plyr1.rect, pipes1.pipe2.rect))
 	{
 		SDL_Log("[%s] [COLLISION] time %d; Player, Pipe", timestr, _event.key.timestamp);
-
+		done = true;
 	}
 	if (collisions.CheckCollision(plyr1.rect, pipes2.pipe1.rect))
 	{
 		SDL_Log("[%s] [COLLISION] time %d; Player, Pipe", timestr, _event.key.timestamp);
-
+		done = true;
 	}
 	if (collisions.CheckCollision(plyr1.rect, pipes2.pipe2.rect))
 	{
 		SDL_Log("[%s] [COLLISION] time %d; Player, Pipe", timestr, _event.key.timestamp);
-
+		done = true;
 	}
 	if (collisions.CheckCollision(plyr1.rect, pipes3.pipe1.rect))
 	{
 		SDL_Log("[%s] [COLLISION] time %d; Player, Pipe", timestr, _event.key.timestamp);
-
+		done = true;
 	}
 	if (collisions.CheckCollision(plyr1.rect, pipes3.pipe2.rect))
 	{
 		SDL_Log("[%s] [COLLISION] time %d; Player, Pipe", timestr, _event.key.timestamp);
-
+		done = true;
 	}
 	if (collisions.CheckCollision(plyr1.rect, pipes4.pipe1.rect))
 	{
 		SDL_Log("[%s] [COLLISION] time %d; Player, Pipe", timestr, _event.key.timestamp);
-
+		done = true;
 	}
 	if (collisions.CheckCollision(plyr1.rect, pipes4.pipe2.rect))
 	{
 		SDL_Log("[%s] [COLLISION] time %d; Player, Pipe", timestr, _event.key.timestamp);
-
+		done = true;
 	}
 
 	plyr1.Update(up,down,left,right);
@@ -178,12 +228,14 @@ void GameWorld::Update()
 	pipes3.Update(window);
 	pipes4.Update(window);
 
-	 //Add end game condition
-
+	if(perf)
+		performanceTimer.endPerformance("Update");
 }
 
 void GameWorld::Render()
 {
+	Timer performanceTimer;
+	performanceTimer.startPerformance();
 	SDL_RenderCopy(renderer, texture, NULL, NULL);
 
 	plyr1.Render(renderer);
@@ -193,19 +245,8 @@ void GameWorld::Render()
 	pipes2.Render(renderer);
 	pipes3.Render(renderer);
 	pipes4.Render(renderer);
-
-}
-bool GameWorld::GetTime(char* buffer, int buffersize) 
-{
-	//Get the current time
-	time_t currentTime =
-		std::time(0);
-	//Get time information from current time -- secs, mins, etc. and save into a struct
-		struct tm* info = localtime(&currentTime);
-	//Format the time to (day_num/month_num/year time)
-	size_t written = strftime(buffer, buffersize, "%d/%m/%y %T", info);
-	//And return the string
-	return written != 0;
+	if(perf)
+		performanceTimer.endPerformance("Render");
 }
 
 void GameWorld::Quit()

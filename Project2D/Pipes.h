@@ -18,6 +18,9 @@ public:
 	Rectangle pipe1;
 	Rectangle pipe2;
 
+	Rectangle powerUp1;
+	Rectangle powerUp2;
+
 	int height, width, R, G, B;
 private:
 	bool top;
