@@ -1,14 +1,6 @@
 #include "Player.h"
 
-Player::Player()
-{
 
-}
-
-Player::~Player()
-{
-
-}
 void Player::Init(SDL_Renderer* renderer)
 {
 	rect.x = 450;
@@ -84,9 +76,5 @@ void Player::Update(bool& up, bool& down, bool& left, bool& right)
 
 void Player::Render(SDL_Renderer* renderer)
 {
-
-
 	SDL_RenderCopy(renderer, texture, &srcRect, &dstRect);
-
-	SDL_RenderPresent(renderer);
 }

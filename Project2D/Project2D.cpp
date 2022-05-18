@@ -26,28 +26,35 @@ int main(int argc, char* argv[])
 
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear"); SDL_RenderSetLogicalSize(renderer, 800, 800);
 
+    if (IMG_Init(SDL_INIT_EVERYTHING) < 0)
+    {
+        SDL_LogCritical(SDL_LOG_CATEGORY_SYSTEM, "Image Initialisation Failed.");
+    }
+    if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) == -1)
+    {
+        SDL_Log("Warning: Audio has not been found! \n");
+    }
 
+   
 
 
     while (true)
     {
-        if (IMG_Init(SDL_INIT_EVERYTHING) < 0)
-        {
-            SDL_LogCritical(SDL_LOG_CATEGORY_SYSTEM, "Image Initialisation Failed.");
-        }
-        GameWorld gameWorld1;
 
-        IMG_Init(SDL_INIT_EVERYTHING);
+        GameWorld gameWorld1;
 
         if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
             return 1;
 
+
         gameWorld1.Init(window, renderer);
-        IMG_Quit();
+
+
     }
 
-
- 
+    IMG_Quit();
+    TTF_Quit();
+    Mix_Quit();
 
    /* SDL_Window* window = SDL_CreateWindow("2D Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 800, SDL_WINDOW_RESIZABLE);
     

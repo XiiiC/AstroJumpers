@@ -22,11 +22,14 @@ using namespace std;
 #define MOVE_LEFT 'a'
 #define MOVE_DOWN 's'
 #define MOVE_RIGHT 'd'
-#define SHOOT 'g'
 #define PERF 'p'
-#define BOR 'l'
-#define START 'j'
+#define BOR 'b'
+#define FULL 'f'
+#define START 't'
 #define END 'r'
+#define MUTE 'm'
+#define VOLUP 'j'
+#define VOLDW 'k'
 
 
 class GameWorld
@@ -55,7 +58,7 @@ public:
 
 	float maxGameTime;
 	float curGameTime;
-
+	Uint32 frames;
 	void Init(SDL_Window* window, SDL_Renderer* renderer);
 	void StartScreen(SDL_Window* window, SDL_Renderer* renderer);
 	void Run(SDL_Window* window, SDL_Renderer* renderer);
@@ -72,19 +75,24 @@ private:
 	bool done = false;
 	bool up, down, left, right, shoot, perf, timedUp;
 
-	bool borderless;
+	bool borderless, muted;
+
+	Timer performanceTimer;
 
 	int score;
 	int scoreMultiplier;
+	int volume;
 
 	SDL_Surface* surface = IMG_Load("content/space.png");
 	SDL_Texture* texture;
 
 	Mix_Music* SOUND_backMusic = NULL;
-	Mix_Music* SOUND_jump = NULL;
+	
 
-	Mix_Chunk* SOUND_back = NULL;
+
 	Mix_Chunk* SOUND_jumper = NULL;
+	Mix_Chunk* SOUND_pickup = NULL;
+	Mix_Chunk* SOUND_dies = NULL;
 
 
 

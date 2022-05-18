@@ -7,8 +7,6 @@
 class Player
 {
 public:
-	Player();
-	~Player();
 	void Init(SDL_Renderer* renderer);
 	void Update(bool& up, bool& down, bool& left, bool& right);
 	void Render(SDL_Renderer* aRenderer);

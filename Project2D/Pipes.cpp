@@ -1,16 +1,17 @@
 #include "Pipes.h"
 
 
-Pipes::Pipes()
-{
-
-}
-Pipes::~Pipes()
-{
-
-}
 void Pipes::Init(int y, bool direction, SDL_Renderer* renderer)
 {
+	
+	pipe1texture = NULL;
+	pipe2texture = NULL;
+
+	powerUp1texture = NULL;
+	powerUp2texture = NULL;
+	SDL_Surface* surface = NULL;
+	SDL_Surface* powerUpSurface1 = NULL;
+	SDL_Surface* powerUpSurface2 = NULL;
 	pipe1.Init(-300, y, 700, 50, 85, 0, 0);
 	pipe2.Init(500, y, 700, 50, 85, 0, 0);
 	powerUp1.Init(-100,-100 , 50, 50, 0, 255, 0);
@@ -24,11 +25,16 @@ void Pipes::Init(int y, bool direction, SDL_Renderer* renderer)
 
 	powered = false;
 
+
+	surface = IMG_Load("content/pipe.png");
+	powerUpSurface1 = IMG_Load("content/scoreUp.png");
+	powerUpSurface2 = IMG_Load("content/plusScore.png");
 	//Convert to a texture
 	pipe1texture = SDL_CreateTextureFromSurface(renderer, surface);
 	pipe2texture = SDL_CreateTextureFromSurface(renderer, surface);
 	powerUp1texture = SDL_CreateTextureFromSurface(renderer, powerUpSurface1);
 	powerUp2texture = SDL_CreateTextureFromSurface(renderer, powerUpSurface2);
+
 
 	//Free up the surface data from RAM
 	SDL_FreeSurface(surface);
@@ -113,7 +119,7 @@ void Pipes::Render(SDL_Renderer* renderer)
 	SDL_RenderCopy(renderer, pipe1texture, NULL, &dstRectPipe1);
 	SDL_RenderCopy(renderer, pipe2texture, NULL, &dstRectPipe2);
 
-	SDL_RenderPresent(renderer);
+	//SDL_RenderPresent(renderer);
 }
 
 void Pipes::Offset()
