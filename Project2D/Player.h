@@ -14,8 +14,8 @@ public:
 	void Render(SDL_Renderer* aRenderer);
 	SDL_Rect rect;
 	int height, width, R, G, B;
-private:
 	int speed;
+private:
 	float offset;
 	Vector2D velocity;
 

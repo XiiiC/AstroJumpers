@@ -149,6 +149,7 @@
     <ClCompile Include="Project2D.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rectangle.cpp" />
+    <ClCompile Include="ScreenText.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
@@ -162,6 +163,7 @@
     <ClInclude Include="Pipes.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rectangle.h" />
+    <ClInclude Include="ScreenText.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>

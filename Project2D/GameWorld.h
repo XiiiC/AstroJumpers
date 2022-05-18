@@ -12,6 +12,8 @@
 #include "FileLogger.h"
 #include "Collider.h"
 #include "SDL_mixer.h"
+#include "ScreenText.h"
+#include <sstream>
 
 using namespace std;
 
@@ -22,6 +24,9 @@ using namespace std;
 #define MOVE_RIGHT 'd'
 #define SHOOT 'g'
 #define PERF 'p'
+#define BOR 'l'
+#define START 'j'
+#define END 'r'
 
 
 class GameWorld
@@ -30,8 +35,6 @@ class GameWorld
 public:
 
 	FileLogger logger;
-	SDL_Window* window;
-	SDL_Renderer* renderer;
 	SDL_Event _event;
 
 	Collider collisions;
@@ -53,17 +56,26 @@ public:
 	float maxGameTime;
 	float curGameTime;
 
-	void Init();
-	void Run();
-	void Input();
-	void Update();
-	void Render();
+	void Init(SDL_Window* window, SDL_Renderer* renderer);
+	void StartScreen(SDL_Window* window, SDL_Renderer* renderer);
+	void Run(SDL_Window* window, SDL_Renderer* renderer);
+	void EndScreen(SDL_Window* window, SDL_Renderer* renderer);
+	void Input(SDL_Window* window);
+	void Update(SDL_Window* window);
+	void Render(SDL_Renderer* renderer);
 	void Quit();
 private:
+
+	SDL_Color textColour;
 	Timer aTimer;
 	const float DELTA_TIME = 33.33f;
 	bool done = false;
-	bool up, down, left, right, shoot, perf;
+	bool up, down, left, right, shoot, perf, timedUp;
+
+	bool borderless;
+
+	int score;
+	int scoreMultiplier;
 
 	SDL_Surface* surface = IMG_Load("content/space.png");
 	SDL_Texture* texture;
@@ -73,6 +85,8 @@ private:
 
 	Mix_Chunk* SOUND_back = NULL;
 	Mix_Chunk* SOUND_jumper = NULL;
+
+
 
 
 };

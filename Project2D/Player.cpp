@@ -11,8 +11,8 @@ Player::~Player()
 }
 void Player::Init(SDL_Renderer* renderer)
 {
-	rect.x = 500;
-	rect.y = 500;
+	rect.x = 450;
+	rect.y = 450;
 	rect.w = 32;
 	rect.h = 32;
 	R = 100;
@@ -78,6 +78,8 @@ void Player::Update(bool& up, bool& down, bool& left, bool& right)
 	rect.x = rect.x + velocity.x;
 	rect.y = rect.y + velocity.y;
 
+
+	
 }
 
 void Player::Render(SDL_Renderer* renderer)
@@ -85,11 +87,6 @@ void Player::Render(SDL_Renderer* renderer)
 
 
 	SDL_RenderCopy(renderer, texture, &srcRect, &dstRect);
-	
-	//SDL_SetRenderDrawColor(renderer, R, G, B, 255);
-	//SDL_RenderFillRect(renderer, &rect);
-	//SDL_RenderDrawRect(renderer, &rect);
-	//SDL_RenderCopy(renderer, playerTexture, &spriteRect,&dstRect);
 
 	SDL_RenderPresent(renderer);
 }
